@@ -52,7 +52,7 @@ const inputEl = ref<ComponentPublicInstance>()
 
 const formValidator = ref<typeof AntForm>()
 
-const vModel = useVModel(props, 'modelValue', emits)
+const vModel = ref(props.modelValue)
 
 const { t } = useI18n()
 
@@ -183,6 +183,10 @@ async function onSubmit() {
       isViewCreating.value = false
     }, 500)
   }
+}
+
+const close = () => {
+  vModel.value = false
 }
 
 const isMetaLoading = ref(false)
@@ -334,7 +338,7 @@ onMounted(async () => {
       </a-form>
 
       <div class="flex flex-row w-full justify-end gap-x-2 mt-7">
-        <NcButton type="secondary" @click="vModel = false">
+        <NcButton type="secondary" @click="close">
           {{ $t('general.cancel') }}
         </NcButton>
 
